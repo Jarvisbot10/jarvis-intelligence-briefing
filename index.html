@@ -6,6 +6,7 @@
   <title>JARVIS Intelligence Briefing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
     /* ── CSS Variables ── */
     :root {
@@ -16,63 +17,38 @@
       --transition: 0.3s cubic-bezier(.4,0,.2,1);
     }
     [data-theme="dark"] {
-      --bg: #0d0f12;
-      --bg2: #13161a;
-      --bg3: #1a1e24;
-      --bg4: #20252d;
-      --border: rgba(255,255,255,0.07);
-      --text: #e8eaf0;
-      --text-dim: #8a909c;
-      --text-muted: #545a66;
-      --card-bg: #161a21;
-      --card-hover: #1d2229;
-      --tag-bg: rgba(201,168,76,0.12);
-      --tag-text: #C9A84C;
-      --section-header: #C9A84C;
-      --pill-bg: rgba(255,255,255,0.06);
-      --shadow: 0 4px 32px rgba(0,0,0,0.5);
-      --shadow-card: 0 2px 16px rgba(0,0,0,0.4);
-      --stars-color: #f4c430;
-      --rising-accent: #4cd9a8;
-      --news-accent: #7b8cde;
-      --github-accent: #58a6ff;
+      --bg: #0d0f12; --bg2: #13161a; --bg3: #1a1e24; --bg4: #20252d;
+      --border: rgba(255,255,255,0.07); --text: #e8eaf0; --text-dim: #8a909c;
+      --text-muted: #545a66; --card-bg: #161a21; --card-hover: #1d2229;
+      --tag-bg: rgba(201,168,76,0.12); --tag-text: #C9A84C;
+      --section-header: #C9A84C; --pill-bg: rgba(255,255,255,0.06);
+      --shadow: 0 4px 32px rgba(0,0,0,0.5); --shadow-card: 0 2px 16px rgba(0,0,0,0.4);
+      --stars-color: #f4c430; --rising-accent: #4cd9a8;
+      --news-accent: #7b8cde; --github-accent: #58a6ff;
+      --search-bg: rgba(255,255,255,0.05); --search-border: rgba(255,255,255,0.12);
+      --highlight-bg: rgba(201,168,76,0.35); --highlight-text: #fff;
     }
     [data-theme="light"] {
-      --bg: #f4f5f7;
-      --bg2: #ffffff;
-      --bg3: #f0f2f5;
-      --bg4: #e8eaed;
-      --border: rgba(0,0,0,0.08);
-      --text: #1a1d23;
-      --text-dim: #555b69;
-      --text-muted: #8a909c;
-      --card-bg: #ffffff;
-      --card-hover: #f7f8fa;
-      --tag-bg: rgba(201,168,76,0.12);
-      --tag-text: #8a6820;
-      --section-header: #8a6820;
-      --pill-bg: rgba(0,0,0,0.05);
-      --shadow: 0 4px 32px rgba(0,0,0,0.08);
-      --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
-      --stars-color: #c99000;
-      --rising-accent: #1a9e72;
-      --news-accent: #4a5acf;
-      --github-accent: #0969da;
+      --bg: #f4f5f7; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8eaed;
+      --border: rgba(0,0,0,0.08); --text: #1a1d23; --text-dim: #555b69;
+      --text-muted: #8a909c; --card-bg: #ffffff; --card-hover: #f7f8fa;
+      --tag-bg: rgba(201,168,76,0.12); --tag-text: #8a6820;
+      --section-header: #8a6820; --pill-bg: rgba(0,0,0,0.05);
+      --shadow: 0 4px 32px rgba(0,0,0,0.08); --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
+      --stars-color: #c99000; --rising-accent: #1a9e72;
+      --news-accent: #4a5acf; --github-accent: #0969da;
+      --search-bg: rgba(0,0,0,0.04); --search-border: rgba(0,0,0,0.15);
+      --highlight-bg: rgba(201,168,76,0.4); --highlight-text: #1a1d23;
     }
 
-    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; line-height: 1.6;
       transition: background var(--transition), color var(--transition);
     }
-
-    /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
@@ -81,29 +57,54 @@
     /* ── Header ── */
     .site-header {
       position: sticky; top: 0; z-index: 100;
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     }
     .header-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; gap: 16px;
       padding: 0 24px; height: 64px;
     }
     .logo {
-      display: flex; align-items: center; gap: 12px;
-      font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em;
-      color: var(--gold); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.05rem; letter-spacing: 0.05em;
+      color: var(--gold); text-decoration: none; flex-shrink: 0;
     }
     .logo-icon {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: var(--gold-glow);
-      border: 1.5px solid var(--gold);
+      width: 34px; height: 34px; border-radius: 8px;
+      background: var(--gold-glow); border: 1.5px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
+      color: var(--gold);
     }
-    .header-right { display: flex; align-items: center; gap: 12px; }
+    .logo-icon svg { width: 18px; height: 18px; }
+
+    /* ── Search ── */
+    .search-wrap {
+      flex: 1; max-width: 420px;
+      position: relative; display: flex; align-items: center;
+    }
+    .search-icon {
+      position: absolute; left: 12px; color: var(--text-muted);
+      display: flex; align-items: center; pointer-events: none;
+    }
+    .search-icon svg { width: 15px; height: 15px; }
+    .search-input {
+      width: 100%; padding: 8px 12px 8px 36px;
+      background: var(--search-bg); border: 1px solid var(--search-border);
+      border-radius: 99px; color: var(--text);
+      font-size: 0.85rem; font-family: inherit;
+      transition: all var(--transition); outline: none;
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus { border-color: var(--gold); background: var(--card-bg); }
+    .search-count {
+      position: absolute; right: 12px;
+      font-size: 0.72rem; color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      pointer-events: none;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .theme-toggle {
       cursor: pointer; border: 1.5px solid var(--border);
       background: var(--pill-bg); color: var(--text-dim);
@@ -112,6 +113,7 @@
       transition: all var(--transition); display: flex; align-items: center; gap: 6px;
     }
     .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+    .theme-toggle svg { width: 14px; height: 14px; }
     .live-badge {
       display: flex; align-items: center; gap: 6px;
       background: var(--tag-bg); color: var(--tag-text);
@@ -120,68 +122,61 @@
     }
     .live-dot {
       width: 7px; height: 7px; border-radius: 50%;
-      background: var(--tag-text);
-      animation: pulse 2s infinite;
+      background: var(--tag-text); animation: pulse 2s infinite;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+    /* ── Jump Nav ── */
+    .jump-nav {
+      background: var(--bg3); border-bottom: 1px solid var(--border);
+      padding: 10px 24px; overflow-x: auto;
     }
+    .jump-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;
+    }
+    .jump-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; margin-right: 4px; }
+    .jump-btn {
+      flex-shrink: 0; background: var(--pill-bg); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 4px 12px; border-radius: 99px;
+      font-size: 0.75rem; cursor: pointer; text-decoration: none;
+      transition: all var(--transition); white-space: nowrap;
+    }
+    .jump-btn:hover, .jump-btn.active { background: var(--tag-bg); color: var(--gold); border-color: var(--gold-dim); }
 
     /* ── Hero ── */
     .hero {
       background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 60px 24px 48px;
-      text-align: center;
+      border-bottom: 1px solid var(--border); padding: 52px 24px 40px; text-align: center;
     }
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
-      color: var(--gold); text-transform: uppercase;
-      margin-bottom: 16px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 16px;
     }
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 700; line-height: 1.1;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
+    .hero-title { font-size: clamp(2rem,5vw,3rem); font-weight: 700; line-height: 1.1; color: var(--text); margin-bottom: 14px; }
     .hero-title span { color: var(--gold); }
-    .hero-sub {
-      font-size: 1rem; color: var(--text-dim); max-width: 540px; margin: 0 auto 32px;
-    }
-    .hero-meta {
-      display: flex; align-items: center; justify-content: center; gap: 24px;
-      flex-wrap: wrap;
-    }
-    .hero-stat {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 0.85rem; color: var(--text-dim);
-    }
+    .hero-sub { font-size: 1rem; color: var(--text-dim); max-width: 540px; margin: 0 auto 28px; }
+    .hero-meta { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .hero-stat { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-dim); }
+    .hero-stat svg { width: 15px; height: 15px; color: var(--gold); }
     .hero-stat strong { color: var(--text); }
 
-    /* ── Main Layout ── */
-    .main { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }
+    /* ── No results ── */
+    .no-results { display: none; text-align: center; padding: 60px 24px; color: var(--text-muted); }
+    .no-results.visible { display: block; }
 
-    /* ── Day Section ── */
-    .day-section { margin-bottom: 64px; }
+    /* ── Main ── */
+    .main { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }
+    .day-section { margin-bottom: 72px; }
+    .day-section.search-hidden { display: none; }
     .day-header {
       display: flex; align-items: center; gap: 16px;
       margin-bottom: 32px; padding-bottom: 20px;
       border-bottom: 1px solid var(--border);
     }
-    .day-badge {
-      background: var(--gold);
-      color: #000;
-      font-weight: 700; font-size: 0.7rem; letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 5px 14px; border-radius: 99px;
-      white-space: nowrap;
-    }
-    .day-title {
-      font-size: 1.5rem; font-weight: 700; color: var(--text);
-    }
+    .day-badge { background: var(--gold); color: #000; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 99px; white-space: nowrap; }
+    .day-title { font-size: 1.4rem; font-weight: 700; color: var(--text); }
     .day-sub { font-size: 0.85rem; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
 
     /* ── Section Labels ── */
@@ -191,142 +186,68 @@
       text-transform: uppercase; color: var(--text-muted);
       margin-bottom: 16px; margin-top: 40px;
     }
-    .section-label::before {
-      content: ''; display: block; width: 20px; height: 2px;
-      background: currentColor; border-radius: 1px;
-    }
+    .section-label svg { width: 14px; height: 14px; }
     .section-label.news { color: var(--news-accent); }
     .section-label.github { color: var(--github-accent); }
     .section-label.rising { color: var(--rising-accent); }
 
-    /* ── Cards Grid ── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 16px;
-    }
+    /* ── Cards ── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 16px; }
     .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 22px;
-      transition: all var(--transition);
-      position: relative; overflow: hidden;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 22px;
+      transition: all var(--transition); position: relative; overflow: hidden;
       display: flex; flex-direction: column; gap: 10px;
     }
-    .card::before {
-      content: ''; position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: transparent;
-      transition: background var(--transition);
-    }
+    .card::before { content: ''; position: absolute; top:0;left:0;right:0;height:2px; background:transparent; transition: background var(--transition); }
     .card.news::before { background: var(--news-accent); }
     .card.github::before { background: var(--github-accent); }
     .card.rising::before { background: var(--rising-accent); }
-    .card:hover {
-      background: var(--card-hover);
-      border-color: var(--gold-dim);
-      box-shadow: var(--shadow-card);
-      transform: translateY(-2px);
-    }
-    .card-rank {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
-      color: var(--text-muted);
-    }
-    .card-title {
-      font-size: 0.95rem; font-weight: 600; line-height: 1.4;
-      color: var(--text);
-    }
-    .card-title a {
-      color: inherit; text-decoration: none;
-      transition: color var(--transition);
-    }
+    .card:hover { background: var(--card-hover); border-color: var(--gold-dim); box-shadow: var(--shadow-card); transform: translateY(-2px); }
+    .card.search-dim { opacity: 0.25; transition: opacity var(--transition); }
+    .card-rank { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text-muted); }
+    .card-title { font-size: 0.95rem; font-weight: 600; line-height: 1.4; color: var(--text); }
+    .card-title a { color: inherit; text-decoration: none; transition: color var(--transition); }
     .card-title a:hover { color: var(--gold); }
-    .card-desc {
-      font-size: 0.82rem; color: var(--text-dim); line-height: 1.55;
-    }
-    .card-footer {
-      display: flex; align-items: center; gap: 10px;
-      flex-wrap: wrap; margin-top: auto; padding-top: 6px;
-    }
-    .tag {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--tag-bg); color: var(--tag-text);
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em;
-      padding: 3px 10px; border-radius: 99px;
-      text-transform: lowercase;
-    }
-    .stars-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: var(--pill-bg); color: var(--stars-color);
-      font-size: 0.75rem; font-weight: 700;
-      padding: 3px 10px; border-radius: 99px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .meta-pill {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--pill-bg); color: var(--text-muted);
-      font-size: 0.7rem; padding: 3px 10px; border-radius: 99px;
-    }
-    .ext-link {
-      margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
-      color: var(--text-muted); font-size: 0.75rem; text-decoration: none;
-      transition: color var(--transition); white-space: nowrap;
-    }
+    .card-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; }
+    .card-footer { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 6px; }
+    .tag { display: inline-flex; align-items: center; gap: 4px; background: var(--tag-bg); color: var(--tag-text); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; padding: 3px 10px; border-radius: 99px; }
+    .stars-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--pill-bg); color: var(--stars-color); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; font-family: 'JetBrains Mono', monospace; }
+    .meta-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--pill-bg); color: var(--text-muted); font-size: 0.7rem; padding: 3px 10px; border-radius: 99px; }
+    .ext-link { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted); font-size: 0.75rem; text-decoration: none; transition: color var(--transition); white-space: nowrap; }
     .ext-link:hover { color: var(--gold); }
-    .ext-link svg { flex-shrink: 0; }
 
-    /* ── News card full-width ── */
+    /* ── News list ── */
     .cards-list { display: flex; flex-direction: column; gap: 12px; }
     .card-list-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--news-accent);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-left: 3px solid var(--news-accent); border-radius: var(--radius);
+      padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start;
       transition: all var(--transition);
     }
-    .card-list-item:hover {
-      background: var(--card-hover);
-      box-shadow: var(--shadow-card);
-      transform: translateX(3px);
-    }
-    .card-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem; font-weight: 700;
-      color: var(--text-muted); min-width: 28px;
-      line-height: 1.4;
-    }
+    .card-list-item:hover { background: var(--card-hover); box-shadow: var(--shadow-card); transform: translateX(3px); }
+    .card-list-item.search-dim { opacity: 0.25; }
+    .card-num { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--text-muted); min-width: 28px; line-height: 1.4; }
     .card-body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-    .card-source {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
-      color: var(--news-accent); text-transform: uppercase;
-    }
+    .card-source { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; color: var(--news-accent); text-transform: uppercase; }
 
-    /* ── Empty state ── */
-    .empty-state {
-      text-align: center; padding: 40px;
-      color: var(--text-muted); font-size: 0.9rem;
-      background: var(--card-bg); border: 1px dashed var(--border);
-      border-radius: var(--radius);
+    /* ── Search highlight ── */
+    mark.search-hl {
+      background: var(--highlight-bg); color: var(--highlight-text);
+      border-radius: 3px; padding: 0 2px;
     }
 
     /* ── Footer ── */
-    .site-footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 24px; text-align: center;
-      color: var(--text-muted); font-size: 0.8rem;
-    }
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
     .site-footer a { color: var(--gold); text-decoration: none; }
     .site-footer a:hover { text-decoration: underline; }
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
-      .header-inner { padding: 0 16px; }
+      .header-inner { padding: 0 16px; height: auto; flex-wrap: wrap; padding: 10px 16px; gap: 10px; }
+      .search-wrap { order: 3; max-width: 100%; flex: 0 0 100%; }
       .main { padding: 32px 16px 64px; }
-      .hero { padding: 40px 16px 32px; }
+      .hero { padding: 36px 16px 28px; }
       .day-header { flex-wrap: wrap; }
       .day-sub { margin-left: 0; }
       .cards-grid { grid-template-columns: 1fr; }
@@ -339,417 +260,569 @@
   <header class="site-header">
     <div class="header-inner">
       <a href="#" class="logo">
-        <div class="logo-icon">⚡</div>
+        <div class="logo-icon"><i data-lucide="zap"></i></div>
         JARVIS BRIEFING
       </a>
+
+      <div class="search-wrap">
+        <span class="search-icon"><i data-lucide="search"></i></span>
+        <input class="search-input" type="text" id="search-input" placeholder="Search headlines, repos, topics..." autocomplete="off" />
+        <span class="search-count" id="search-count"></span>
+      </div>
+
       <div class="header-right">
-        <div class="live-badge">
-          <span class="live-dot"></span>
-          LIVE
-        </div>
+        <div class="live-badge"><span class="live-dot"></span>LIVE</div>
         <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
-          🌙 Dark
+          <i data-lucide="moon" id="theme-icon"></i>
+          <span id="theme-label">Dark</span>
         </button>
       </div>
     </div>
   </header>
 
+  <!-- Jump Navigation -->
+  <nav class="jump-nav" id="jump-nav">
+    <div class="jump-nav-inner">
+      <span class="jump-label">Jump to</span>
+      <a class="jump-btn active" href="#2026-04-07">07 Apr 2026</a>
+      <a class="jump-btn" href="#2026-04-06">06 Apr 2026</a>
+    </div>
+  </nav>
+
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-eyebrow">Intelligence Briefing System v1.0</div>
-    <h1 class="hero-title">
-      JARVIS Daily<br /><span>AI & Tech Monitor</span>
-    </h1>
-    <p class="hero-sub">
-      Daily intelligence on AI releases, GitHub trending projects, and the hottest developments across the technology landscape — curated and delivered each morning at 08:00 IST.
-    </p>
+    <div class="hero-eyebrow">Intelligence Briefing System v2.0</div>
+    <h1 class="hero-title">JARVIS Daily<br /><span>AI &amp; Tech Monitor</span></h1>
+    <p class="hero-sub">Daily intelligence on AI releases, GitHub trending projects, and the hottest developments across the technology landscape — curated and delivered each morning at 08:00 IST.</p>
     <div class="hero-meta">
-      <div class="hero-stat">🤖 <strong>6 sources</strong> monitored daily</div>
-      <div class="hero-stat">⭐ <strong>GitHub trending</strong> AI & agents</div>
-      <div class="hero-stat">🌍 <strong>Claude · GPT · Gemini · LLaMA</strong></div>
+      <div class="hero-stat"><i data-lucide="bot"></i> <strong>7 sources</strong> monitored daily</div>
+      <div class="hero-stat"><i data-lucide="star"></i> <strong>GitHub trending</strong> AI &amp; agents</div>
+      <div class="hero-stat"><i data-lucide="globe"></i> <strong>Claude · GPT · Gemini · LLaMA</strong></div>
     </div>
   </section>
 
   <!-- Main Content -->
   <main class="main" id="briefings">
+    <div id="no-results" class="no-results">
+      <p style="font-size:1.1rem;margin-bottom:8px;">No matching results</p>
+      <p>Try a different keyword, sir.</p>
+    </div>
 
-    <!-- ═══════════════════════════════════════════════════════
-         DAY SECTION — Monday 06 April 2026
-    ════════════════════════════════════════════════════════ -->
-    <section class="day-section" id="2026-04-06">
+    <section class="day-section" id="2026-04-07">
       <div class="day-header">
         <div class="day-badge">Latest</div>
-        <h2 class="day-title">Monday, 06 April 2026</h2>
-        <div class="day-sub">Compiled 10:54 IST</div>
+        <h2 class="day-title">Tuesday, 07 April 2026</h2>
+        <div class="day-sub">Compiled 08:51 IST</div>
       </div>
-
-      <!-- NEWS -->
-      <div class="section-label news">
-        📰 &nbsp;AI &amp; Technology Headlines
-      </div>
+      <div class="section-label news"><i data-lucide="newspaper"></i> AI &amp; Technology Headlines</div>
       <div class="cards-list">
-
-        <div class="card-list-item">
+        <div class="card-list-item searchable">
           <div class="card-num">01</div>
           <div class="card-body">
-            <div class="card-source">Anthropic / Claude</div>
-            <div class="card-title">
-              <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">
-                Claude Continues Rapid Iteration — Latest Model Updates &amp; API Enhancements
-              </a>
-            </div>
-            <div class="card-desc">Anthropic continues its aggressive release cadence with ongoing improvements to Claude's reasoning, coding, and tool-use capabilities. The Claude API ecosystem is expanding rapidly.</div>
+            <div class="card-source">Anthropic</div>
+            <div class="card-title"><a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Claude Sonnet 4.5 Sets New Benchmarks in Coding and Reasoning Tasks</a></div>
+            <div class="card-desc">Anthropic's latest Claude model achieves state-of-the-art results across coding benchmarks, with improved tool use, multi-step reasoning, and extended context handling.</div>
             <div class="card-footer">
-              <span class="tag">anthropic</span>
-              <span class="tag">claude</span>
-              <a class="ext-link" href="https://www.anthropic.com/news" target="_blank" rel="noopener">
-                anthropic.com ↗
-              </a>
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-07</span>
+              <a class="ext-link" href="https://www.anthropic.com/news" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
             </div>
           </div>
         </div>
-
-        <div class="card-list-item">
+        <div class="card-list-item searchable">
           <div class="card-num">02</div>
           <div class="card-body">
-            <div class="card-source">Microsoft / GitHub</div>
-            <div class="card-title">
-              <a href="https://github.blog" target="_blank" rel="noopener">
-                GitHub Copilot Evolves Into a Full Coding Agent — Autonomous PR Creation &amp; Review
-              </a>
-            </div>
-            <div class="card-desc">GitHub Copilot has expanded significantly beyond autocomplete — now capable of opening pull requests, reviewing code autonomously, and acting as a full coding agent within GitHub workflows.</div>
+            <div class="card-source">OpenAI Blog</div>
+            <div class="card-title"><a href="https://openai.com/blog" target="_blank" rel="noopener">OpenAI Expands GPT-4o with Real-Time Voice and Vision Capabilities</a></div>
+            <div class="card-desc">GPT-4o receives major updates with enhanced real-time audio/video processing, deeper tool integration, and new API features for enterprise agentic deployments.</div>
             <div class="card-footer">
-              <span class="tag">github copilot</span>
-              <span class="tag">microsoft</span>
-              <a class="ext-link" href="https://github.blog" target="_blank" rel="noopener">
-                github.blog ↗
-              </a>
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-07</span>
+              <a class="ext-link" href="https://openai.com/blog" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
             </div>
           </div>
         </div>
-
-        <div class="card-list-item">
+        <div class="card-list-item searchable">
           <div class="card-num">03</div>
           <div class="card-body">
             <div class="card-source">Google DeepMind</div>
-            <div class="card-title">
-              <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener">
-                Google Gemini 2.0 Flash &amp; Pro — Multimodal Reasoning at Scale
-              </a>
-            </div>
-            <div class="card-desc">Google's Gemini 2.0 family continues expanding, with Flash variants optimised for speed and Pro variants pushing multimodal reasoning boundaries. Vertex AI integration deepens.</div>
+            <div class="card-title"><a href="https://deepmind.google" target="_blank" rel="noopener">Google Gemini 2.5 Pro Achieves Top Scores on MMLU and HumanEval</a></div>
+            <div class="card-desc">Gemini 2.5 Pro pushes multimodal reasoning boundaries with a 1M token context window and improved performance on complex science and coding tasks.</div>
             <div class="card-footer">
-              <span class="tag">google</span>
-              <span class="tag">gemini</span>
-              <span class="tag">deepmind</span>
-              <a class="ext-link" href="https://deepmind.google" target="_blank" rel="noopener">
-                deepmind.google ↗
-              </a>
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://deepmind.google" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
             </div>
           </div>
         </div>
-
-        <div class="card-list-item">
+        <div class="card-list-item searchable">
           <div class="card-num">04</div>
           <div class="card-body">
             <div class="card-source">Meta AI</div>
-            <div class="card-title">
-              <a href="https://ai.meta.com/llama/" target="_blank" rel="noopener">
-                Llama 4 Scout &amp; Maverick — Open Source MoE Models Released
-              </a>
-            </div>
-            <div class="card-desc">Meta has released Llama 4 Scout (17B active/109B total MoE) and Llama 4 Maverick, marking a significant step in open-source multimodal large language models with mixture-of-experts architecture.</div>
+            <div class="card-title"><a href="https://ai.meta.com/llama" target="_blank" rel="noopener">Meta Releases Llama 4 Scout — 109B MoE Model Now Available Open Source</a></div>
+            <div class="card-desc">Llama 4 Scout (17B active / 109B total) with Mixture-of-Experts architecture sets a new standard for open-source multimodal language models.</div>
             <div class="card-footer">
-              <span class="tag">meta</span>
-              <span class="tag">llama 4</span>
-              <span class="tag">open source</span>
-              <a class="ext-link" href="https://ai.meta.com/llama/" target="_blank" rel="noopener">
-                ai.meta.com ↗
-              </a>
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://ai.meta.com/llama" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
             </div>
           </div>
         </div>
-
-        <div class="card-list-item">
+        <div class="card-list-item searchable">
           <div class="card-num">05</div>
           <div class="card-body">
             <div class="card-source">Microsoft Azure</div>
-            <div class="card-title">
-              <a href="https://azure.microsoft.com/en-us/blog/" target="_blank" rel="noopener">
-                Azure AI Foundry — New Agent Orchestration Framework for Enterprise Deployments
-              </a>
-            </div>
-            <div class="card-desc">Microsoft Azure AI Foundry introduces enhanced multi-agent orchestration capabilities, making it easier to deploy and manage fleets of AI agents at enterprise scale on AKS and Azure Container Apps.</div>
+            <div class="card-title"><a href="https://azure.microsoft.com/blog" target="_blank" rel="noopener">Microsoft Azure AI Foundry Launches Multi-Agent Orchestration at Scale</a></div>
+            <div class="card-desc">Azure AI Foundry introduces enterprise-grade multi-agent management, making it easier to deploy and monitor fleets of AI agents on AKS.</div>
             <div class="card-footer">
-              <span class="tag">azure</span>
-              <span class="tag">microsoft</span>
-              <span class="tag">agents</span>
-              <a class="ext-link" href="https://azure.microsoft.com/blog" target="_blank" rel="noopener">
-                azure.microsoft.com ↗
-              </a>
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-05</span>
+              <a class="ext-link" href="https://azure.microsoft.com/blog" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
             </div>
           </div>
         </div>
+        <div class="card-list-item searchable">
+          <div class="card-num">06</div>
+          <div class="card-body">
+            <div class="card-source">NVIDIA Developer</div>
+            <div class="card-title"><a href="https://developer.nvidia.com/blog" target="_blank" rel="noopener">NVIDIA NIM Microservices Now Support Llama 4 and Gemma 3</a></div>
+            <div class="card-desc">NVIDIA NIM adds support for the latest open-source models, enabling one-click production deployment with optimised TensorRT-LLM inference.</div>
+            <div class="card-footer">
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-05</span>
+              <a class="ext-link" href="https://developer.nvidia.com/blog" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
+            </div>
+          </div>
+        </div></div>
+      <div class="section-label github"><i data-lucide="github"></i> GitHub Trending — AI &amp; Agents</div>
+      <div class="cards-grid">
+        <div class="card github searchable">
+          <div class="card-rank">TRENDING #01</div>
+          <div class="card-title"><a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener">langchain-ai/langchain</a></div>
+          <div class="card-desc">The agent engineering platform — build context-aware reasoning applications with LLMs.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>132,580</span>
+            <span class="tag">agents</span><span class="tag">ai</span><span class="tag">ai-agents</span><span class="tag">anthropic</span>
+            <a class="ext-link" href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card github searchable">
+          <div class="card-rank">TRENDING #02</div>
+          <div class="card-title"><a href="https://github.com/microsoft/autogen" target="_blank" rel="noopener">microsoft/autogen</a></div>
+          <div class="card-desc">A programming framework for agentic AI — multi-agent conversations, tool use, and autonomous task solving.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>56,771</span>
+            <span class="tag">agentic</span><span class="tag">agents</span><span class="tag">ai</span><span class="tag">microsoft</span>
+            <a class="ext-link" href="https://github.com/microsoft/autogen" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card github searchable">
+          <div class="card-rank">TRENDING #03</div>
+          <div class="card-title"><a href="https://github.com/crewAIInc/crewAI" target="_blank" rel="noopener">crewAIInc/crewAI</a></div>
+          <div class="card-desc">Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>48,197</span>
+            <span class="tag">agents</span><span class="tag">crewai</span><span class="tag">llm</span><span class="tag">openai</span>
+            <a class="ext-link" href="https://github.com/crewAIInc/crewAI" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card github searchable">
+          <div class="card-rank">TRENDING #04</div>
+          <div class="card-title"><a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener">langchain-ai/langgraph</a></div>
+          <div class="card-desc">Build resilient language agents as graphs — stateful, multi-actor LLM applications.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>28,576</span>
+            <span class="tag">agents</span><span class="tag">langchain</span><span class="tag">llm</span>
+            <a class="ext-link" href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card github searchable">
+          <div class="card-rank">TRENDING #05</div>
+          <div class="card-title"><a href="https://github.com/deepset-ai/haystack" target="_blank" rel="noopener">deepset-ai/haystack</a></div>
+          <div class="card-desc">AI orchestration framework to build customizable, production-ready LLM applications.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>24,745</span>
+            <span class="tag">ai</span><span class="tag">llm</span><span class="tag">rag</span><span class="tag">search</span>
+            <a class="ext-link" href="https://github.com/deepset-ai/haystack" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div></div>
+      <div class="section-label rising"><i data-lucide="trending-up"></i> Rising Stars — New This Month</div>
+      <div class="cards-grid">
+        <div class="card rising searchable">
+          <div class="card-rank">NEW &amp; HOT #01</div>
+          <div class="card-title"><a href="https://github.com/browser-use/browser-use" target="_blank" rel="noopener">browser-use/browser-use</a></div>
+          <div class="card-desc">Make websites accessible for AI agents — browser automation with LLM-native control.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>61,200</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-15</span>
+            <a class="ext-link" href="https://github.com/browser-use/browser-use" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card rising searchable">
+          <div class="card-rank">NEW &amp; HOT #02</div>
+          <div class="card-title"><a href="https://github.com/All-Hands-AI/OpenHands" target="_blank" rel="noopener">All-Hands-AI/OpenHands</a></div>
+          <div class="card-desc">OpenHands: Code Less, Make More — AI-powered software development agents.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>55,800</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-20</span>
+            <a class="ext-link" href="https://github.com/All-Hands-AI/OpenHands" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card rising searchable">
+          <div class="card-rank">NEW &amp; HOT #03</div>
+          <div class="card-title"><a href="https://github.com/openai/openai-agents-python" target="_blank" rel="noopener">openai/openai-agents-python</a></div>
+          <div class="card-desc">The official OpenAI Agents SDK for Python — build production-grade agentic apps.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>12,400</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-28</span>
+            <a class="ext-link" href="https://github.com/openai/openai-agents-python" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card rising searchable">
+          <div class="card-rank">NEW &amp; HOT #04</div>
+          <div class="card-title"><a href="https://github.com/camel-ai/camel" target="_blank" rel="noopener">camel-ai/camel</a></div>
+          <div class="card-desc">CAMEL: Communicative Agents for Mind Exploration of Large Language Model Society.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>8,900</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-10</span>
+            <a class="ext-link" href="https://github.com/camel-ai/camel" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="card rising searchable">
+          <div class="card-rank">NEW &amp; HOT #05</div>
+          <div class="card-title"><a href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener">microsoft/markitdown</a></div>
+          <div class="card-desc">Python tool for converting files and office documents to Markdown for LLM ingestion.</div>
+          <div class="card-footer">
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>7,800</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-01</span>
+            <a class="ext-link" href="https://github.com/microsoft/markitdown" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
+          </div>
+        </div></div>
+    </section>
 
-        <div class="card-list-item">
+
+    <section class="day-section" id="2026-04-06">
+      <div class="day-header">
+        <div class="day-badge">Archive</div>
+        <h2 class="day-title">Monday, 06 April 2026</h2>
+        <div class="day-sub">Compiled 10:54 IST</div>
+      </div>
+      <div class="section-label news"><i data-lucide="newspaper"></i> AI &amp; Technology Headlines</div>
+      <div class="cards-list">
+        <div class="card-list-item searchable">
+          <div class="card-num">01</div>
+          <div class="card-body">
+            <div class="card-source">Anthropic / Claude</div>
+            <div class="card-title"><a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Claude Continues Rapid Iteration — Latest Model Updates & API Enhancements</a></div>
+            <div class="card-desc">Anthropic continues its aggressive release cadence with ongoing improvements to Claude's reasoning, coding, and tool-use capabilities.</div>
+            <div class="card-footer">
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://www.anthropic.com/news" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-list-item searchable">
+          <div class="card-num">02</div>
+          <div class="card-body">
+            <div class="card-source">Microsoft / GitHub</div>
+            <div class="card-title"><a href="https://github.blog" target="_blank" rel="noopener">GitHub Copilot Evolves Into a Full Coding Agent — Autonomous PR Creation & Review</a></div>
+            <div class="card-desc">GitHub Copilot has expanded significantly beyond autocomplete — now capable of opening pull requests, reviewing code autonomously, and acting as a full coding agent.</div>
+            <div class="card-footer">
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://github.blog" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-list-item searchable">
+          <div class="card-num">03</div>
+          <div class="card-body">
+            <div class="card-source">Google DeepMind</div>
+            <div class="card-title"><a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener">Google Gemini 2.0 Flash & Pro — Multimodal Reasoning at Scale</a></div>
+            <div class="card-desc">Google's Gemini 2.0 family continues expanding, with Flash variants optimised for speed and Pro variants pushing multimodal reasoning boundaries.</div>
+            <div class="card-footer">
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-list-item searchable">
+          <div class="card-num">04</div>
+          <div class="card-body">
+            <div class="card-source">Meta AI</div>
+            <div class="card-title"><a href="https://ai.meta.com/llama/" target="_blank" rel="noopener">Llama 4 Scout & Maverick — Open Source MoE Models Released</a></div>
+            <div class="card-desc">Meta has released Llama 4 Scout (17B active/109B total MoE) and Llama 4 Maverick, marking a significant step in open-source multimodal large language models.</div>
+            <div class="card-footer">
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://ai.meta.com/llama/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-list-item searchable">
+          <div class="card-num">05</div>
+          <div class="card-body">
+            <div class="card-source">Microsoft Azure</div>
+            <div class="card-title"><a href="https://azure.microsoft.com/en-us/blog/" target="_blank" rel="noopener">Azure AI Foundry — New Agent Orchestration Framework for Enterprise Deployments</a></div>
+            <div class="card-desc">Microsoft Azure AI Foundry introduces enhanced multi-agent orchestration capabilities, making it easier to deploy and manage fleets of AI agents at enterprise scale.</div>
+            <div class="card-footer">
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://azure.microsoft.com/en-us/blog/" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-list-item searchable">
           <div class="card-num">06</div>
           <div class="card-body">
             <div class="card-source">NVIDIA</div>
-            <div class="card-title">
-              <a href="https://developer.nvidia.com/blog" target="_blank" rel="noopener">
-                NVIDIA NIM Microservices — One-Click LLM Deployment for Production
-              </a>
-            </div>
-            <div class="card-desc">NVIDIA's NIM (NVIDIA Inference Microservices) continues to gain traction as the standard for deploying optimised LLMs in production, with new model support and tighter Kubernetes integration.</div>
+            <div class="card-title"><a href="https://developer.nvidia.com/blog" target="_blank" rel="noopener">NVIDIA NIM Microservices — One-Click LLM Deployment for Production</a></div>
+            <div class="card-desc">NVIDIA's NIM continues to gain traction as the standard for deploying optimised LLMs in production, with new model support and tighter Kubernetes integration.</div>
             <div class="card-footer">
-              <span class="tag">nvidia</span>
-              <span class="tag">inference</span>
-              <span class="tag">deployment</span>
-              <a class="ext-link" href="https://developer.nvidia.com/blog" target="_blank" rel="noopener">
-                developer.nvidia.com ↗
-              </a>
+              <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-06</span>
+              <a class="ext-link" href="https://developer.nvidia.com/blog" target="_blank" rel="noopener"><i data-lucide="external-link" style="width:11px;height:11px;"></i> Read more</a>
             </div>
           </div>
-        </div>
-
-      </div>
-
-      <!-- GITHUB TRENDING -->
-      <div class="section-label github">
-        🐙 &nbsp;GitHub Trending — AI &amp; Agents
-      </div>
+        </div></div>
+      <div class="section-label github"><i data-lucide="github"></i> GitHub Trending — AI &amp; Agents</div>
       <div class="cards-grid">
-
-        <div class="card github">
+        <div class="card github searchable">
           <div class="card-rank">TRENDING #01</div>
-          <div class="card-title">
-            <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener">
-              Significant-Gravitas / AutoGPT
-            </a>
-          </div>
-          <div class="card-desc">AutoGPT is the vision of accessible AI for everyone, to use and to build on. Mission: provide the tools so that anyone can build and run their own AI agent.</div>
+          <div class="card-title"><a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener">Significant-Gravitas/AutoGPT</a></div>
+          <div class="card-desc">AutoGPT is the vision of accessible AI for everyone, to use and to build on. Mission: provide the tools so that anyone can build and run the</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 183,165</span>
-            <span class="tag">agentic-ai</span>
-            <span class="tag">agents</span>
-            <a class="ext-link" href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>183,165</span>
+            <span class="tag">agentic-ai</span><span class="tag">agents</span>
+            <a class="ext-link" href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card github">
+        <div class="card github searchable">
           <div class="card-rank">TRENDING #02</div>
-          <div class="card-title">
-            <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">
-              ollama / ollama
-            </a>
-          </div>
-          <div class="card-desc">Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, Qwen, Gemma and other large language models locally. The easiest way to run LLMs on your machine.</div>
+          <div class="card-title"><a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">ollama/ollama</a></div>
+          <div class="card-desc">Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, Qwen, Gemma and other large language models locally.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 167,358</span>
-            <span class="tag">deepseek</span>
-            <span class="tag">gemma</span>
-            <a class="ext-link" href="https://github.com/ollama/ollama" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>167,358</span>
+            <span class="tag">deepseek</span><span class="tag">gemma</span><span class="tag">llm</span>
+            <a class="ext-link" href="https://github.com/ollama/ollama" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card github">
+        <div class="card github searchable">
           <div class="card-rank">TRENDING #03</div>
-          <div class="card-title">
-            <a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener">
-              huggingface / transformers
-            </a>
-          </div>
-          <div class="card-desc">🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal AI. The backbone of the open AI ecosystem.</div>
+          <div class="card-title"><a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener">huggingface/transformers</a></div>
+          <div class="card-desc">🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal AI.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 158,855</span>
-            <span class="tag">transformers</span>
-            <span class="tag">huggingface</span>
-            <a class="ext-link" href="https://github.com/huggingface/transformers" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>158,855</span>
+            <span class="tag">transformers</span><span class="tag">huggingface</span>
+            <a class="ext-link" href="https://github.com/huggingface/transformers" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card github">
+        <div class="card github searchable">
           <div class="card-rank">TRENDING #04</div>
-          <div class="card-title">
-            <a href="https://github.com/f/prompts.chat" target="_blank" rel="noopener">
-              f / prompts.chat
-            </a>
-          </div>
-          <div class="card-desc">f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. The go-to open source community hub for AI prompt engineering.</div>
+          <div class="card-title"><a href="https://github.com/f/prompts.chat" target="_blank" rel="noopener">f/prompts.chat</a></div>
+          <div class="card-desc">f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 157,615</span>
-            <span class="tag">prompts</span>
-            <span class="tag">chatgpt</span>
-            <a class="ext-link" href="https://github.com/f/prompts.chat" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>157,615</span>
+            <span class="tag">prompts</span><span class="tag">chatgpt</span>
+            <a class="ext-link" href="https://github.com/f/prompts.chat" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card github">
+        <div class="card github searchable">
           <div class="card-rank">TRENDING #05</div>
-          <div class="card-title">
-            <a href="https://github.com/affaan-m/everything-claude-code" target="_blank" rel="noopener">
-              affaan-m / everything-claude-code
-            </a>
-          </div>
-          <div class="card-desc">The agent harness performance optimisation system. Skills, instincts, memory, security, and research-first development for Claude Code. Topics: ai-agents, anthropic, claude-code.</div>
+          <div class="card-title"><a href="https://github.com/affaan-m/everything-claude-code" target="_blank" rel="noopener">affaan-m/everything-claude-code</a></div>
+          <div class="card-desc">The agent harness performance optimisation system. Skills, instincts, memory, security, and research-first development for Claude Code.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 141,159</span>
-            <span class="tag">claude-code</span>
-            <span class="tag">ai-agents</span>
-            <a class="ext-link" href="https://github.com/affaan-m/everything-claude-code" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>141,159</span>
+            <span class="tag">claude-code</span><span class="tag">ai-agents</span>
+            <a class="ext-link" href="https://github.com/affaan-m/everything-claude-code" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
-        </div>
-
-      </div>
-
-      <!-- RISING STARS -->
-      <div class="section-label rising">
-        🚀 &nbsp;Rising Stars — New This Month
-      </div>
+        </div></div>
+      <div class="section-label rising"><i data-lucide="trending-up"></i> Rising Stars — New This Month</div>
       <div class="cards-grid">
-
-        <div class="card rising">
+        <div class="card rising searchable">
           <div class="card-rank">NEW &amp; HOT #01</div>
-          <div class="card-title">
-            <a href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">
-              garrytan / gstack
-            </a>
-          </div>
-          <div class="card-desc">Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, and more — an opinionated agent harness built for speed.</div>
+          <div class="card-title"><a href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">garrytan/gstack</a></div>
+          <div class="card-desc">Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, and more.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 64,871</span>
-            <span class="meta-pill">📅 2026-03-11</span>
-            <a class="ext-link" href="https://github.com/garrytan/gstack" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>64,871</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-11</span>
+            <a class="ext-link" href="https://github.com/garrytan/gstack" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card rising">
+        <div class="card rising searchable">
           <div class="card-rank">NEW &amp; HOT #02</div>
-          <div class="card-title">
-            <a href="https://github.com/Gitlawb/openclaude" target="_blank" rel="noopener">
-              Gitlawb / openclaude
-            </a>
-          </div>
-          <div class="card-desc">Open Claude — open-source coding-agent CLI for OpenAI, Gemini, DeepSeek, Ollama, Codex, GitHub Models, and 200+ models. The OpenClaw vision for truly model-agnostic AI agents.</div>
+          <div class="card-title"><a href="https://github.com/Gitlawb/openclaude" target="_blank" rel="noopener">Gitlawb/openclaude</a></div>
+          <div class="card-desc">Open Claude — open-source coding-agent CLI for OpenAI, Gemini, DeepSeek, Ollama, Codex, GitHub Models, and 200+ models.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 16,770</span>
-            <span class="meta-pill">📅 2026-04-01</span>
-            <a class="ext-link" href="https://github.com/Gitlawb/openclaude" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>16,770</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-04-01</span>
+            <a class="ext-link" href="https://github.com/Gitlawb/openclaude" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card rising">
+        <div class="card rising searchable">
           <div class="card-rank">NEW &amp; HOT #03</div>
-          <div class="card-title">
-            <a href="https://github.com/claude-code-best/claude-code" target="_blank" rel="noopener">
-              claude-code-best / claude-code
-            </a>
-          </div>
-          <div class="card-desc">原汁原味 Claude Code — runnable, buildable, debuggable. TypeScript types fully repaired, enterprise-grade reliability, clean lock file. Community-maintained open build of Claude Code.</div>
+          <div class="card-title"><a href="https://github.com/claude-code-best/claude-code" target="_blank" rel="noopener">claude-code-best/claude-code</a></div>
+          <div class="card-desc">Community-maintained open build of Claude Code — TypeScript types fully repaired, enterprise-grade reliability.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 13,993</span>
-            <span class="meta-pill">📅 2026-03-31</span>
-            <a class="ext-link" href="https://github.com/claude-code-best/claude-code" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>13,993</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-31</span>
+            <a class="ext-link" href="https://github.com/claude-code-best/claude-code" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card rising">
+        <div class="card rising searchable">
           <div class="card-rank">NEW &amp; HOT #04</div>
-          <div class="card-title">
-            <a href="https://github.com/jackwener/opencli" target="_blank" rel="noopener">
-              jackwener / opencli
-            </a>
-          </div>
-          <div class="card-desc">Make Any Website &amp; Tool Your CLI. A universal CLI Hub and AI-native runtime. Transform any website, Electron app, or local tool into a command-line interface.</div>
+          <div class="card-title"><a href="https://github.com/jackwener/opencli" target="_blank" rel="noopener">jackwener/opencli</a></div>
+          <div class="card-desc">Make Any Website & Tool Your CLI. A universal CLI Hub and AI-native runtime.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 13,485</span>
-            <span class="meta-pill">📅 2026-03-14</span>
-            <a class="ext-link" href="https://github.com/jackwener/opencli" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>13,485</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-14</span>
+            <a class="ext-link" href="https://github.com/jackwener/opencli" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
         </div>
-
-        <div class="card rising">
+        <div class="card rising searchable">
           <div class="card-rank">NEW &amp; HOT #05</div>
-          <div class="card-title">
-            <a href="https://github.com/openai/codex-plugin-cc" target="_blank" rel="noopener">
-              openai / codex-plugin-cc
-            </a>
-          </div>
-          <div class="card-desc">Use Codex from Claude Code to review code or delegate tasks. An official OpenAI plugin bridging the Codex and Claude Code ecosystems — the rivalry producing interesting offspring.</div>
+          <div class="card-title"><a href="https://github.com/openai/codex-plugin-cc" target="_blank" rel="noopener">openai/codex-plugin-cc</a></div>
+          <div class="card-desc">Use Codex from Claude Code to review code or delegate tasks. An official OpenAI plugin bridging the Codex and Claude Code ecosystems.</div>
           <div class="card-footer">
-            <span class="stars-badge">⭐ 12,018</span>
-            <span class="meta-pill">📅 2026-03-30</span>
-            <a class="ext-link" href="https://github.com/openai/codex-plugin-cc" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub ↗
-            </a>
+            <span class="stars-badge"><i data-lucide="star" style="width:11px;height:11px;margin-right:3px;"></i>12,018</span>
+            <span class="meta-pill"><i data-lucide="calendar" style="width:11px;height:11px;margin-right:3px;"></i>2026-03-30</span>
+            <a class="ext-link" href="https://github.com/openai/codex-plugin-cc" target="_blank" rel="noopener"><i data-lucide="github" style="width:11px;height:11px;"></i> GitHub</a>
           </div>
-        </div>
-
-      </div>
+        </div></div>
     </section>
-    <!-- END DAY SECTION -->
-
   </main>
 
   <!-- Footer -->
   <footer class="site-footer">
     <p>
-      Compiled by <strong>JARVIS</strong> — Intelligence Briefing System &nbsp;·&nbsp;
+      Compiled by <strong>JARVIS</strong> — Intelligence Briefing System v2.0 &nbsp;·&nbsp;
       <a href="https://github.com/Jarvisbot10/jarvis-intelligence-briefing" target="_blank" rel="noopener">View on GitHub ↗</a>
       &nbsp;·&nbsp; Updated daily at 08:00 IST
     </p>
   </footer>
 
-  <!-- Theme Script -->
   <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      const btn = document.getElementById('theme-btn');
-      if (html.getAttribute('data-theme') === 'dark') {
-        html.setAttribute('data-theme', 'light');
-        btn.textContent = '🌙 Dark';
+    // ── Lucide Icons ──
+    lucide.createIcons();
+
+    // ── Theme ──
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('jarvis-theme', theme);
+      const icon = document.getElementById('theme-icon');
+      const label = document.getElementById('theme-label');
+      if (theme === 'dark') {
+        icon.setAttribute('data-lucide', 'moon');
+        label.textContent = 'Dark';
       } else {
-        html.setAttribute('data-theme', 'dark');
-        btn.textContent = '☀️ Light';
+        icon.setAttribute('data-lucide', 'sun');
+        label.textContent = 'Light';
       }
-      localStorage.setItem('jarvis-theme', html.getAttribute('data-theme'));
+      lucide.createIcons();
+    }
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+    const savedTheme = localStorage.getItem('jarvis-theme');
+    if (savedTheme) setTheme(savedTheme);
+
+    // ── Search & Highlight ──
+    const searchInput = document.getElementById('search-input');
+    const searchCount = document.getElementById('search-count');
+    const noResults = document.getElementById('no-results');
+
+    function escapeRegex(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    // Restore saved theme
-    const saved = localStorage.getItem('jarvis-theme');
-    if (saved) {
-      document.documentElement.setAttribute('data-theme', saved);
-      document.getElementById('theme-btn').textContent = saved === 'dark' ? '☀️ Light' : '🌙 Dark';
+    function highlight(el, regex) {
+      // Only highlight text nodes inside the element
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      const nodes = [];
+      let node;
+      while ((node = walker.nextNode())) nodes.push(node);
+      nodes.forEach(function(n) {
+        const parent = n.parentNode;
+        if (parent && parent.nodeName === 'MARK') return;
+        const text = n.textContent;
+        if (!regex.test(text)) return;
+        const span = document.createElement('span');
+        span.innerHTML = text.replace(regex, function(m) { return '<mark class="search-hl">' + m + '</mark>'; });
+        parent.replaceChild(span, n);
+      });
     }
+
+    function clearHighlights(container) {
+      container.querySelectorAll('mark.search-hl').forEach(function(m) {
+        const parent = m.parentNode;
+        parent.replaceChild(document.createTextNode(m.textContent), m);
+        parent.normalize();
+      });
+      // Also unwrap search-hl spans
+      container.querySelectorAll('span').forEach(function(s) {
+        if (!s.querySelector('mark.search-hl') && s.className === '') {
+          const parent = s.parentNode;
+          if (parent) {
+            while (s.firstChild) parent.insertBefore(s.firstChild, s);
+            parent.removeChild(s);
+            parent.normalize();
+          }
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', function() {
+      const query = this.value.trim();
+      const sections = document.querySelectorAll('.day-section');
+      const searchables = document.querySelectorAll('.searchable');
+
+      // Clear all previous highlights
+      searchables.forEach(function(el) {
+        clearHighlights(el);
+        el.classList.remove('search-dim');
+      });
+      sections.forEach(function(s) { s.classList.remove('search-hidden'); });
+      noResults.classList.remove('visible');
+      searchCount.textContent = '';
+
+      if (!query) return;
+
+      const regex = new RegExp('(' + escapeRegex(query) + ')', 'gi');
+      let matchCount = 0;
+
+      searchables.forEach(function(el) {
+        const text = el.textContent || '';
+        if (regex.test(text)) {
+          matchCount++;
+          // Highlight within title, desc, source, tags
+          const targets = el.querySelectorAll('.card-title, .card-desc, .card-source, .tag, .card-list-item .card-title, .card-list-item .card-desc');
+          targets.forEach(function(t) { highlight(t, new RegExp('(' + escapeRegex(query) + ')', 'gi')); });
+        } else {
+          el.classList.add('search-dim');
+        }
+      });
+
+      // Hide sections where all cards are dimmed
+      let anyVisible = false;
+      sections.forEach(function(section) {
+        const cards = section.querySelectorAll('.searchable');
+        const allDimmed = Array.from(cards).every(function(c) { return c.classList.contains('search-dim'); });
+        if (allDimmed && cards.length > 0) {
+          section.classList.add('search-hidden');
+        } else {
+          anyVisible = true;
+        }
+      });
+
+      if (!anyVisible) noResults.classList.add('visible');
+      if (matchCount > 0) searchCount.textContent = matchCount + ' match' + (matchCount > 1 ? 'es' : '');
+    });
+
+    // ── Jump nav active state on scroll ──
+    const jumpBtns = document.querySelectorAll('.jump-btn');
+    const daySections = document.querySelectorAll('.day-section');
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          jumpBtns.forEach(function(btn) { btn.classList.remove('active'); });
+          const id = entry.target.getAttribute('id');
+          const active = document.querySelector('.jump-btn[href="#' + id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+    daySections.forEach(function(s) { observer.observe(s); });
   </script>
 
 </body>
